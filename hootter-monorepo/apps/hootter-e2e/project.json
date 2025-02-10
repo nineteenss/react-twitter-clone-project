@@ -1,0 +1,10 @@
+{
+  "name": "hootter-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/hootter-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["hootter"],
+  "// targets": "to see all targets run: nx show project hootter-e2e --web",
+  "targets": {}
+}

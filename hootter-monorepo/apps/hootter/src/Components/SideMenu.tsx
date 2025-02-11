@@ -14,13 +14,13 @@ import SideBarButton from './UI/SideBar/SideBarButtons';
 
 const SideMenu: React.FC = () => {
   return (
-    <div className="border-r border-solid border-gray-500 mr-4">
+    <div className="border-r border-gray-500/25 pr-4 mr-4">
       <ul className="flex flex-col gap-2">
         <li>
           <SideBarButton title="Profile" />
         </li>
         <li>
-          <SideBarButton title="Hoot feed" />
+          <SideBarButton title="Hoot feed" isActive={true} />
         </li>
         <li>
           <SideBarButton title="Friends" />

@@ -10,12 +10,19 @@ import React from 'react';
 interface SideBarButtonProps {
   title: string;
   onClick?: () => void;
+  isActive?: boolean;
 }
 
-const SideBarButton: React.FC<SideBarButtonProps> = ({ title, onClick }) => {
+const SideBarButton: React.FC<SideBarButtonProps> = ({
+  title,
+  onClick,
+  isActive,
+}) => {
   return (
     <button
-      className="hover:bg-blue-200 transition-all duration-150 py-2 px-4 rounded-md"
+      className={`hover:bg-blue-200 transition-all w-full text-left duration-150 py-2 px-4 rounded-md ${
+        isActive ? 'bg-slate-300' : ''
+      }`}
       onClick={onClick}
     >
       {title}

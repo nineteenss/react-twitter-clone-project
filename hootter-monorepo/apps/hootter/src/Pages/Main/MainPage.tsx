@@ -8,11 +8,7 @@
 import React from 'react';
 import HootterFeed from '../../Components/HootterFeed';
 
-interface MainPageProps {
-  helloMsg: string;
-}
-
-const MainPage: React.FC<MainPageProps> = ({ helloMsg }) => {
+const MainPage: React.FC = () => {
   return (
     <div>
       <HootterFeed data={[]} />

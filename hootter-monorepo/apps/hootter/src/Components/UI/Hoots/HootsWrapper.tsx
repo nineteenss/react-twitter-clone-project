@@ -6,9 +6,12 @@
 //
 
 import React from 'react';
-import Heart from '../Icons/HeartIcon';
+import HeartIcon from '../Icons/HeartIcon';
+import ReHootIcon from '../Icons/ReHootsIcon';
+import CommentsIcon from '../Icons/CommentsIcon';
 
 interface HootsWrapperProps {
+  avatar?: string;
   textname: string;
   username: string;
   content: string;
@@ -19,6 +22,7 @@ interface HootsWrapperProps {
 }
 
 const HootsWrapper: React.FC<HootsWrapperProps> = ({
+  avatar,
   username,
   content,
   datetime,
@@ -28,21 +32,39 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
   comments,
 }) => {
   return (
-    <div className="bg-white p-3 rounded-xl">
-      <div className="flex flex-row gap-1.5 items-center mb-1">
-        <p className="font-semibold">{textname}</p>
-        <p className="text-gray-400 text-sm">@{username}</p>
-        <p className="text-gray-400 text-xs">•</p>
-        <p className="text-gray-400 text-sm">{datetime}</p>
-      </div>
-      <p>{content}</p>
-      <div className="flex flex-row justify-between text-gray-500 mt-4">
-        <div className="flex flex-row gap-1">
-          <Heart color="black" />
-          {likes}
+    <div className="p-3 rounded-xl hover:bg-slate-200/70 transition-all duration-75">
+      <div className="flex flex-row gap-4">
+        {avatar ? (
+          <img src={avatar} alt="User avatar" />
+        ) : (
+          // investigate why sizing does't set properly i.e. fixed 45x45
+          <div className="flex justify-center items-center bg-red-500 w-[45px] h-[45px] rounded-full text-xs text-white font-bold">
+            UN
+          </div>
+        )}
+        <div className="w-full">
+          <div className="flex flex-row gap-1.5 items-center mb-1">
+            <p className="font-semibold">{textname}</p>
+            <p className="text-gray-400 text-sm">@{username}</p>
+            <p className="text-gray-400 text-xs">•</p>
+            <p className="text-gray-400 text-sm">{datetime}</p>
+          </div>
+          <p>{content}</p>
+          <div className="flex flex-row justify-between font-regular text-gray-500 mt-4">
+            <div className="flex flex-row gap-1">
+              <HeartIcon color="#9ca3af" />
+              {likes}
+            </div>
+            <div className="flex flex-row gap-1">
+              <ReHootIcon color="#9ca3af" />
+              {rehoots}
+            </div>
+            <div className="flex flex-row gap-1">
+              <CommentsIcon color="#9ca3af" />
+              {comments}
+            </div>
+          </div>
         </div>
-        <p>{rehoots}</p>
-        <p>{comments}</p>
       </div>
     </div>
   );

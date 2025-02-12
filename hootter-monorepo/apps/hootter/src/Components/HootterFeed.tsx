@@ -8,6 +8,7 @@
 import React from 'react';
 import HootsWrapper from './UI/Hoots/HootsWrapper';
 import HootsInput from './UI/Hoots/HootsInput';
+import { defaultNames } from '../Constants/nameConstants';
 
 interface HootterFeedProps {
   data: [];
@@ -16,10 +17,10 @@ interface HootterFeedProps {
 const HootterFeed: React.FC<HootterFeedProps> = (data) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-right text-2xl font-bold uppercase border-b border-gray-500/25 mb-2 pb-2">
-        Hoot feed
+      <div className="text-center text-2xl font-bold uppercase mb-2 pb-2">
+        {defaultNames.hootFeedName}
       </div>
-      <HootsInput placeholder={"What's on your mind, hotter?"} rows={2} />
+      <HootsInput placeholder={defaultNames.hootPlaceholderName} rows={2} />
       {/* Dummy data */}
       <HootsWrapper
         textname="John"

@@ -24,7 +24,7 @@ const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
           YOU
         </div>
       )}
-      <div className="bg-slate-200 rounded-2xl h-fit p-5 flex flex-col">
+      <div className="bg-slate-200 rounded-2xl h-fit p-4 flex flex-col">
         <textarea
           name="hootarea"
           id="hootcontent"

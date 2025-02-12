@@ -8,12 +8,12 @@ const MainLayout: React.FC = () => {
   return (
     <>
       <div className="p-12">
-        <Header />
         <div className="grid grid-cols-[320px_minmax(0,_1fr)]">
-          <div className="max-w-xs">
+          <div className="col-span-1 max-w-xs">
+            <Header />
             <SideMenu />
           </div>
-          <div>
+          <div className="col-span-1">
             <Outlet />
           </div>
         </div>

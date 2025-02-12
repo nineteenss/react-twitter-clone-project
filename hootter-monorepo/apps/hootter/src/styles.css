@@ -24,6 +24,8 @@ body {
   width: 100%;
   height: 100%;
   border-radius: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
+  transition-duration: inherit;
   opacity: 1;
-  @apply transition-all;
 }

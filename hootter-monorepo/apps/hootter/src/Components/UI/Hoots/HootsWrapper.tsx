@@ -9,6 +9,7 @@ import React from 'react';
 import HeartIcon from '../Icons/HeartIcon';
 import ReHootIcon from '../Icons/ReHootsIcon';
 import CommentsIcon from '../Icons/CommentsIcon';
+import HootShotIcon from '../Icons/HootShotIcon';
 
 interface HootsWrapperProps {
   avatar?: string;
@@ -64,6 +65,9 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
             <div className="flex flex-row gap-1">
               <CommentsIcon color={iconsColor} />
               {comments}
+            </div>
+            <div className="flex flex-row gap-1">
+              <HootShotIcon color={iconsColor} />
             </div>
           </div>
         </div>

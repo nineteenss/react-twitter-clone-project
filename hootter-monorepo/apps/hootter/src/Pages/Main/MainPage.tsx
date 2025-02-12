@@ -9,11 +9,7 @@ import React from 'react';
 import HootterFeed from '../../Components/HootterFeed';
 
 const MainPage: React.FC = () => {
-  return (
-    <div>
-      <HootterFeed data={[]} />
-    </div>
-  );
+  return <HootterFeed data={[]} />;
 };
 
 export default MainPage;

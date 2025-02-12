@@ -6,3 +6,24 @@
 body {
   @apply bg-white;
 }
+
+.hover-overlay:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.hover-overlay:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff38;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  opacity: 1;
+  @apply transition-all;
+}

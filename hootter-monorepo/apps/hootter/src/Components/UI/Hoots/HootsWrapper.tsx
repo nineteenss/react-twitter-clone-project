@@ -31,6 +31,7 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
   rehoots,
   comments,
 }) => {
+  const iconsColor = '#9ca3af';
   return (
     <div className="p-3 rounded-xl hover:bg-slate-200/70 transition-all duration-75">
       <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
@@ -53,15 +54,15 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
           <p>{content}</p>
           <div className="flex flex-row justify-between font-regular text-gray-500 mt-4">
             <div className="flex flex-row gap-1">
-              <HeartIcon color="#9ca3af" />
+              <HeartIcon color={iconsColor} />
               {likes}
             </div>
             <div className="flex flex-row gap-1">
-              <ReHootIcon color="#9ca3af" />
+              <ReHootIcon color={iconsColor} />
               {rehoots}
             </div>
             <div className="flex flex-row gap-1">
-              <CommentsIcon color="#9ca3af" />
+              <CommentsIcon color={iconsColor} />
               {comments}
             </div>
           </div>

@@ -13,7 +13,7 @@ export function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<MainPage helloMsg="Wassup?!" />} />
+        <Route path="/" element={<MainPage />} />
       </Route>
     </Routes>
   );

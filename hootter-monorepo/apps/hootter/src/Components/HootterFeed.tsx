@@ -7,6 +7,7 @@
 
 import React from 'react';
 import HootsWrapper from './UI/Hoots/HootsWrapper';
+import HootsInput from './UI/Hoots/HootsInput';
 
 interface HootterFeedProps {
   data: [];
@@ -18,22 +19,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
       <div className="text-right text-2xl font-bold uppercase border-b border-gray-500/25 mb-2 pb-2">
         Hoot feed
       </div>
-      <div className="flex flex-row">
-        {data?.avatar ? (
-          <img src={data?.avatar} alt="User avatar" />
-        ) : (
-          <div className="flex flex-col justify-center align-middle bg-red-500 p-4 mr-3 rounded-full text-xs h-fit text-white font-bold">
-            YU
-          </div>
-        )}
-        <textarea
-          name="hootarea"
-          id="hootcontent"
-          className="bg-slate-200 rounded-2xl p-5 resize-y w-full"
-        >
-          Hoot something that goes on your mind...
-        </textarea>
-      </div>
+      <HootsInput placeholder={"What's on your mind, hotter?"} rows={2} />
       {/* Dummy data */}
       <HootsWrapper
         textname="John"

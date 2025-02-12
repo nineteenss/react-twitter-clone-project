@@ -33,11 +33,12 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
 }) => {
   return (
     <div className="p-3 rounded-xl hover:bg-slate-200/70 transition-all duration-75">
-      <div className="flex flex-row gap-4">
+      <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
         {avatar ? (
           <img src={avatar} alt="User avatar" />
         ) : (
-          // investigate why sizing does't set properly i.e. fixed 45x45
+          // investigate: why sizing doesn't set properly i.e. fixed 45x45
+          // caused by flex. replaced with grid
           <div className="flex justify-center items-center bg-red-500 w-[45px] h-[45px] rounded-full text-xs text-white font-bold">
             UN
           </div>

@@ -21,8 +21,9 @@ interface HootsInputProps {
 
 const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
   return (
-    <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
-      <UserAvatar image={data?.toString()} name="self" color={'bg-slate-800'} />
+    // <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
+    <div className="grid grid-cols-1 gap-4">
+      {/* <UserAvatar image={data?.toString()} name="self" color={'bg-slate-800'} /> */}
       <div className="bg-slate-200 rounded-3xl h-fit p-4 flex flex-col">
         <textarea
           name="hootarea"

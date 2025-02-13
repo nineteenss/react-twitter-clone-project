@@ -8,7 +8,7 @@
 import React from 'react';
 
 interface SideBarButtonProps {
-  title: string;
+  label: string | boolean | undefined;
   onClick?: () => void;
   leftSection?: React.ReactNode;
   rightSection?: React.ReactNode;
@@ -16,7 +16,7 @@ interface SideBarButtonProps {
 }
 
 const SideBarButton: React.FC<SideBarButtonProps> = ({
-  title,
+  label,
   onClick,
   leftSection,
   rightSection,
@@ -24,24 +24,13 @@ const SideBarButton: React.FC<SideBarButtonProps> = ({
 }) => {
   return (
     <button
-      className={`
-        hover:bg-blue-200
-        transition-all
-        w-full
-        text-left
-        duration-150
-        py-2
-        px-4
-        rounded-md
-        ${isActive && 'bg-slate-300'}
-        flex
-        flex-row
-        gap-3
-      `}
+      className={`hover:bg-blue-200 transition-all w-full text-left duration-150 py-2 px-4 rounded-md ${
+        isActive && 'bg-yellow-500'
+      } flex flex-row gap-3 font-semibold`}
       onClick={onClick}
     >
       {leftSection && leftSection}
-      {title}
+      {label}
       {rightSection && rightSection}
     </button>
   );

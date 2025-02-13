@@ -5,27 +5,36 @@
 //  Created by Sergey Smetannikov on 12.02.2025
 //
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface ButtonProps {
-  text?: string;
+  label?: string;
+  icon?: React.ReactNode;
   color?: string;
   onClick?: () => void;
   left?: boolean;
   center?: boolean;
   right?: boolean;
+  leftSection?: React.ReactNode;
+  rightSection?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  text,
+  label,
+  icon,
   onClick,
   color,
   left,
   center,
   right,
+  leftSection,
+  rightSection,
 }) => {
   const className = [
     color || 'bg-orange-500',
+    'flex',
+    'flex-row',
+    'gap-2',
     'relative',
     'hover-overlay',
     'transition-all',
@@ -44,7 +53,10 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={className} onClick={onClick}>
-      {text}
+      {leftSection && leftSection}
+      {icon && icon}
+      {label && label}
+      {rightSection && rightSection}
     </button>
   );
 };

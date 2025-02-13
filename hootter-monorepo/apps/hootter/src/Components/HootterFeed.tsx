@@ -23,6 +23,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
       <HootsInput placeholder={defaultNames.hootPlaceholderName} rows={2} />
       {/* Dummy data */}
       <HootsWrapper
+        isFollowing={false}
         textname="John"
         username="JohnThePunisher"
         content="some text by John"
@@ -32,6 +33,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
         comments={152}
       />
       <HootsWrapper
+        isFollowing={true}
         textname="Alex"
         username="Alexboyo12"
         content="some text by Alex"
@@ -41,6 +43,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
         comments={152}
       />
       <HootsWrapper
+        isFollowing={true}
         textname="Kirby"
         username="KirbyEatsALot"
         content="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
@@ -50,6 +53,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
         comments={152}
       />
       <HootsWrapper
+        isFollowing={false}
         textname="dev"
         username="developer"
         content="some text by developer"

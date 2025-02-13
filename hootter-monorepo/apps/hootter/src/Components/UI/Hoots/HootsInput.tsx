@@ -7,6 +7,11 @@
 
 import React from 'react';
 import Button from '../Buttons/Button';
+import ImageIcon from '../Icons/ImageIcon';
+import GifIcon from '../Icons/GifIcon';
+import PollIcon from '../Icons/PollIcon';
+import SendHootIcon from '../Icons/SenndHootIcon';
+import UserAvatar from '../User/UserAvatar';
 
 interface HootsInputProps {
   data?: [];
@@ -17,14 +22,8 @@ interface HootsInputProps {
 const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
   return (
     <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
-      {data ? (
-        <img src={data.toString()} alt="User avatar" />
-      ) : (
-        <div className="flex flex-col justify-center items-center bg-blue-400 w-[45px] h-[45px] mr-3 rounded-full text-xs text-white font-bold">
-          YOU
-        </div>
-      )}
-      <div className="bg-slate-200 rounded-2xl h-fit p-4 flex flex-col">
+      <UserAvatar image={data?.toString()} name="self" color={'bg-slate-800'} />
+      <div className="bg-slate-200 rounded-3xl h-fit p-4 flex flex-col">
         <textarea
           name="hootarea"
           id="hootcontent"
@@ -32,7 +31,19 @@ const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
           className="outline-none resize-none overflow-y-hidden bg-transparent w-full mb-2"
           rows={rows || 2}
         />
-        <Button text="Hoot" color={'bg-blue-500'} right />
+        {/* Input menu - upload image, upload gif, create poll, send message */}
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-row gap-1">
+            <Button icon={<ImageIcon color="white" />} color={'bg-blue-500'} />
+            <Button icon={<GifIcon color="white" />} color={'bg-blue-500'} />
+            <Button icon={<PollIcon color="white" />} color={'bg-blue-500'} />
+          </div>
+          <Button
+            label="Hoot"
+            rightSection={<SendHootIcon color="white" />}
+            color={'bg-blue-500'}
+          />
+        </div>
       </div>
     </div>
   );

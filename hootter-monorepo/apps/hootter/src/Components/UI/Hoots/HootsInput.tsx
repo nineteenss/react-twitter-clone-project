@@ -10,8 +10,8 @@ import Button from '../Buttons/Button';
 import ImageIcon from '../Icons/ImageIcon';
 import GifIcon from '../Icons/GifIcon';
 import PollIcon from '../Icons/PollIcon';
-import SendHootIcon from '../Icons/SenndHootIcon';
-import UserAvatar from '../User/UserAvatar';
+import SendHootIcon from '../Icons/SendHootIcon';
+// import UserAvatar from '../User/UserAvatar';
 
 interface HootsInputProps {
   data?: [];
@@ -22,7 +22,7 @@ interface HootsInputProps {
 const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
   return (
     // <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 gap-4 max-sm:mb-4">
       {/* <UserAvatar image={data?.toString()} name="self" color={'bg-slate-800'} /> */}
       <div className="bg-slate-200 rounded-3xl h-fit p-4 flex flex-col">
         <textarea

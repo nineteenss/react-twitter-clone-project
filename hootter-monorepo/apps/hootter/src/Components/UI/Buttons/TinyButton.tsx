@@ -10,17 +10,27 @@ import React from 'react';
 interface TinyButtonProps {
   label?: string;
   color?: string;
+  nobackground?: boolean;
+  noaction?: boolean;
   onClick?: () => void;
 }
 
-const TinyButton: React.FC<TinyButtonProps> = ({ label, color, onClick }) => {
+const TinyButton: React.FC<TinyButtonProps> = ({
+  label,
+  color,
+  nobackground,
+  noaction,
+  onClick,
+}) => {
   const className = [
-    'px-2',
+    `${!nobackground && 'px-2'}`,
+    `${nobackground && 'text-slate-500'}`,
     'py-1',
     'rounded-xl',
-    'text-xs',
+    'text-[10px]',
     'font-semibold',
-    `${color}`,
+    `${!nobackground && color}`,
+    `${(nobackground || noaction) && 'cursor-default'}`,
   ]
     .filter(Boolean)
     .join(' ');

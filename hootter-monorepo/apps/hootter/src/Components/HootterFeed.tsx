@@ -8,7 +8,8 @@
 import React from 'react';
 import HootsWrapper from './UI/Hoots/HootsWrapper';
 import HootsInput from './UI/Hoots/HootsInput';
-import { defaultNames } from '../Constants/nameConstants';
+import Title from './UI/Text/Titles';
+import { DEFAULT_NAMES } from '../Constants/nameConstants';
 
 interface HootterFeedProps {
   data: [];
@@ -17,13 +18,12 @@ interface HootterFeedProps {
 const HootterFeed: React.FC<HootterFeedProps> = (data) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-center text-2xl font-bold uppercase mb-2 pb-2">
-        {defaultNames.hootFeedName}
-      </div>
-      <HootsInput placeholder={defaultNames.hootPlaceholderName} rows={2} />
+      <Title label={DEFAULT_NAMES.hootFeedName} />
+      <HootsInput placeholder={DEFAULT_NAMES.hootPlaceholderName} rows={2} />
       {/* Dummy data */}
       <HootsWrapper
         isFollowing={false}
+        isSelf={false}
         textname="John"
         username="JohnThePunisher"
         content="some text by John"
@@ -34,6 +34,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
       />
       <HootsWrapper
         isFollowing={true}
+        isSelf={false}
         textname="Alex"
         username="Alexboyo12"
         content="some text by Alex"
@@ -44,6 +45,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
       />
       <HootsWrapper
         isFollowing={true}
+        isSelf={false}
         textname="Kirby"
         username="KirbyEatsALot"
         content="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
@@ -54,6 +56,7 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
       />
       <HootsWrapper
         isFollowing={false}
+        isSelf={false}
         textname="dev"
         username="developer"
         content="some text by developer"

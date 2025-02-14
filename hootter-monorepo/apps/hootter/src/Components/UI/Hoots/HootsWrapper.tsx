@@ -6,7 +6,7 @@
 //
 
 import React from 'react';
-import { defaultColors } from '../../../Constants/colorsConstants';
+import { DEFAULT_COLORS } from '../../../Constants/colorsConstants';
 import HeartIcon from '../Icons/HeartIcon';
 import ReHootIcon from '../Icons/ReHootsIcon';
 import CommentsIcon from '../Icons/CommentsIcon';
@@ -24,7 +24,8 @@ interface HootsWrapperProps {
   likes?: number;
   rehoots?: number;
   comments?: number;
-  isFollowing: boolean;
+  isFollowing: boolean | false;
+  isSelf: boolean | false;
 }
 
 const HootsWrapper: React.FC<HootsWrapperProps> = ({
@@ -37,42 +38,51 @@ const HootsWrapper: React.FC<HootsWrapperProps> = ({
   rehoots,
   comments,
   isFollowing,
+  isSelf,
 }) => {
   return (
-    <div className="p-3 rounded-xl hover:bg-slate-200/70 transition-all duration-75">
+    <div className="p-3 rounded-xl hover:bg-slate-200/70 max-sm:mb-5 max-sm:hover:bg-transparent max-sm:p-0 transition-all duration-75">
       <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
-        <UserAvatar image={avatar} name={username} color="bg-orange-400" />
+        <div className="flex flex-col gap-2">
+          <UserAvatar image={avatar} name={username} color="bg-orange-400" />
+          {isSelf ? (
+            <TinyButton label="you" color="bg-blue-200" noaction />
+          ) : !isFollowing ? (
+            <TinyButton
+              label="follow"
+              color="bg-green-300"
+              onClick={() => console.log(`Started following, ${username}`)}
+            />
+          ) : (
+            <TinyButton label="following" nobackground />
+          )}
+        </div>
         <div className="w-full">
           <div className="flex flex-row gap-1.5 items-center mb-1">
             <p className="font-semibold">{textname}</p>
-            <p className="text-gray-400 text-sm">@{username}</p>
+            <p className="text-gray-400 text-sm truncate">@{username}</p>
             <p className="text-gray-400 text-xs">•</p>
             <p className="text-gray-400 text-sm">{datetime}</p>
-            {!isFollowing ? (
-              <TinyButton label="follow" color="bg-green-300" />
-            ) : (
-              <TinyButton label="unfollow" color="bg-yellow-300" />
-            )}
           </div>
           <p>{content}</p>
           <div className="flex flex-row justify-between font-regular text-gray-500 mt-4">
             <HootWrapperButton
-              icon={<HeartIcon color={defaultColors.hootsIconsColor} />}
-              text={likes}
+              icon={<HeartIcon color={DEFAULT_COLORS.hootsIconsColor} />}
+              label={likes}
               onClick={() => console.log('Current likes:', likes)}
             />
             <HootWrapperButton
-              icon={<ReHootIcon color={defaultColors.hootsIconsColor} />}
-              text={rehoots}
+              icon={<ReHootIcon color={DEFAULT_COLORS.hootsIconsColor} />}
+              label={rehoots}
               onClick={() => console.log('Current rehoots:', rehoots)}
             />
             <HootWrapperButton
-              icon={<CommentsIcon color={defaultColors.hootsIconsColor} />}
-              text={comments}
+              icon={<CommentsIcon color={DEFAULT_COLORS.hootsIconsColor} />}
+              label={comments}
               onClick={() => console.log('Current comments:', comments)}
             />
             <HootWrapperButton
-              icon={<HootShotIcon color={defaultColors.hootsIconsColor} />}
+              icon={<HootShotIcon color={DEFAULT_COLORS.hootsIconsColor} />}
               onClick={() => console.log('Hoot captured successfully')}
             />
           </div>

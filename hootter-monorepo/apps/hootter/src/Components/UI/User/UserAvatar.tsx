@@ -11,23 +11,51 @@ interface UserAvatarProps {
   image?: string;
   color?: string;
   name: string;
+  height?: number;
+  width?: number;
 }
 
-interface ImageProps {
+interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
   imgSrc: string;
+  height?: number;
+  width?: number;
 }
 
-interface NoImageProps {
+interface NoImageProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
   name: string;
+  height?: number;
+  width?: number;
 }
 
-const ImageExists: React.FC<ImageProps> = ({ imgSrc }) => {
-  return <img src={imgSrc} alt="User avatar" />;
+const ImageExists: React.FC<ImageProps> = ({ imgSrc, height, width, ...props }) => {
+  return (
+    <img
+      src={imgSrc}
+      {...props}
+      height={height && height}
+      width={width && width}
+      alt="User avatar"
+    />
+  );
 };
 
-const ImageDoesNotExist: React.FC<NoImageProps> = ({ color, name }) => {
-  const firstTwoLettersName = () => {
+const ImageDoesNotExist: React.FC<NoImageProps> = ({ color, name, height, width, ...props }) => {
+  const className = [
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-center',
+    color || 'bg-green-500',
+    'rounded-full',
+    'text-sm',
+    'text-white',
+    'font-extrabold',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const firstTwoLetters = () => {
     if (name) {
       const result = name.slice(0, 2).toUpperCase();
       return result;
@@ -36,20 +64,19 @@ const ImageDoesNotExist: React.FC<NoImageProps> = ({ color, name }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center ${
-        color || 'bg-green-500'
-      } w-[45px] h-[45px] mr-3 rounded-full text-xs text-white font-bold`}
-    >
-      {firstTwoLettersName() || undefined}
+      className={className}
+      {...props}
+      style={{ width: `${width || 45}px`, height: `${height || 45}px` }}>
+      {firstTwoLetters() || undefined}
     </div>
   );
 };
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ image, color, name }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({ image, color, name, height, width }) => {
   return (
     <>
-      {image && <ImageExists imgSrc={image} />}
-      {!image && <ImageDoesNotExist name={name} color={color} />}
+      {image && <ImageExists imgSrc={image} height={height} width={width} />}
+      {!image && <ImageDoesNotExist name={name} color={color} height={height} width={width} />}
     </>
   );
 };

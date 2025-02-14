@@ -6,8 +6,9 @@
 //
 
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { screenSize } from '../Constants/screenSizeConstants';
+import { Outlet, useLocation } from 'react-router-dom';
+import { SCREEN_SIZE } from '../Constants/screenSizeConstants';
+import { PATHS } from '../Constants/pathsConstants';
 import Header from '../Components/Header';
 import SideMenu from '../Components/SideMenu';
 import Footer from '../Components/Footer';
@@ -15,6 +16,9 @@ import SuggestBar from '../Components/SuggestBar';
 
 const MainLayout: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const location = useLocation();
+  const { pathname } = location;
+  const isActive = (path: string) => pathname === path;
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,10 +33,10 @@ const MainLayout: React.FC = () => {
     };
   }, []);
 
-  const isXlScreen = windowWidth >= screenSize.xl;
-  const isLgScreen = windowWidth >= screenSize.lg;
-  const isSmdScreen = windowWidth >= screenSize.smd;
-  const isSmScreen = windowWidth >= screenSize.sm;
+  const isXlScreen = windowWidth >= SCREEN_SIZE.xl;
+  const isLgScreen = windowWidth >= SCREEN_SIZE.lg;
+  const isSmdScreen = windowWidth >= SCREEN_SIZE.smd;
+  const isSmScreen = windowWidth >= SCREEN_SIZE.sm;
 
   return (
     <>
@@ -50,11 +54,11 @@ const MainLayout: React.FC = () => {
             )}
           </div>
           <div className="col-span-1">
-            {!isSmdScreen && <SuggestBar />}
+            {!isActive(PATHS.PROFILE) && !isSmdScreen && <SuggestBar />}
             <Outlet />
           </div>
           {isXlScreen && (
-            <div className="col-span-1 p-4 ml-4 rounded-e-lg">
+            <div className="col-span-1 p-4 ml-4 rounded-e-3xl bg-slate-200/75">
               <SuggestBar />
             </div>
           )}

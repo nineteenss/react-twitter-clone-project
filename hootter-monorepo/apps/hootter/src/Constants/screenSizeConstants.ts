@@ -5,7 +5,7 @@
 //  Created by Sergey Smetannikov on 13.02.2025
 //
 
-export const screenSize = {
+export const SCREEN_SIZE = {
   // Screen sizes based on default tailwind css device resolutions.
   // SRC: https://tailwindcss.com/docs/responsive-design
   sm: 640,      // 40rem

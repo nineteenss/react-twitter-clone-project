@@ -7,13 +7,7 @@
 
 import { Request, Response } from 'express'
 import { pool } from '../db/client'
-import { v4 as uuid4 } from 'uuid'
-import { z } from 'zod'
-
-interface CreateHootRequest {
-  content: string
-  user_id: string
-}
+import { HootSchema } from '../schemas/schemas'
 
 export const getHoots = async (req: Request, res: Response) => {
   try {
@@ -25,13 +19,19 @@ export const getHoots = async (req: Request, res: Response) => {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export const createHoot = async (req: Request<{}, {}, CreateHootRequest>, res: Response) => {
-  const { content, user_id } = req.body
+export const createHoot = async (req: Request, res: Response) => {
+  // Validate the request body using Zod
+  const validationResult = HootSchema.safeParse(req.body)
 
-  if (!isValidUUID(user_id)) {
-    return res.status(400).json({ error: 'Invalid UUID format' })
+  if (!validationResult.success) {
+    // If validation fails, return a 400 error with the validation errors
+    return res.status(400).json({
+      error: 'Validation Error',
+      details: validationResult.error.errors
+    })
   }
+
+  const { content, user_id } = req.body
 
   try {
     const result = await pool.query(

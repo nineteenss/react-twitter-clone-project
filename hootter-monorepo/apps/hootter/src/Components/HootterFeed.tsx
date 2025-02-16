@@ -32,39 +32,6 @@ const HootterFeed: React.FC<HootterFeedProps> = (data) => {
         rehoots={25}
         comments={152}
       />
-      <HootsWrapper
-        isFollowing={true}
-        isSelf={false}
-        textname="Alex"
-        username="Alexboyo12"
-        content="some text by Alex"
-        datetime="12 hrs"
-        likes={15}
-        rehoots={25}
-        comments={152}
-      />
-      <HootsWrapper
-        isFollowing={true}
-        isSelf={false}
-        textname="Kirby"
-        username="KirbyEatsALot"
-        content="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
-        datetime="15 mins"
-        likes={15}
-        rehoots={25}
-        comments={152}
-      />
-      <HootsWrapper
-        isFollowing={false}
-        isSelf={false}
-        textname="dev"
-        username="developer"
-        content="some text by developer"
-        datetime="3 days"
-        likes={15}
-        rehoots={25}
-        comments={152}
-      />
       {/* Dummy data end */}
     </div>
   );

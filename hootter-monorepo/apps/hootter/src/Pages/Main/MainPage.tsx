@@ -7,8 +7,12 @@
 
 import React from 'react';
 import HootterFeed from '../../Components/HootterFeed';
+import { useHoots } from '../../Hooks/useHoots';
 
 const MainPage: React.FC = () => {
+  const { receiveHootQuery } = useHoots();
+  console.log(receiveHootQuery);
+
   return <HootterFeed data={[]} />;
 };
 

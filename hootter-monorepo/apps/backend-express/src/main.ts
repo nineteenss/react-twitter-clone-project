@@ -32,7 +32,8 @@ const startServer = async () => {
   await initializeDatabase()
 
   app.listen(port, host, () => {
-    console.log(`[ ready ] http://${host}:${port}`)
+    // Colored 'ready' output using ANSI green color
+    console.log(`[\x1b[32m ready\x1b[0m ] http://${host}:${port}`)
   })
 }
 

@@ -1,3 +1,7 @@
 {
-  "nxConsole.nxWorkspacePath": "hootter-monorepo"
+  "nxConsole.nxWorkspacePath": "hootter-monorepo",
+  "cSpell.words": [
+    "noaction",
+    "unfollow"
+  ]
 }

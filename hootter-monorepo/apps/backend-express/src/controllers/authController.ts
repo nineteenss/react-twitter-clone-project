@@ -65,3 +65,20 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).send('Internal Server Error')
   }
 }
+
+export const logout = async (req: Request, res: Response) => {
+  const token = req.headers.authorization?.split(' ')[1]
+
+  if (!token) {
+    return res.status(400).json({ error: 'Token missing' })
+  }
+
+  try {
+    //Add token to blacklist
+    await pool.query('INSERT INTO blacklisted_tokens (token) VALUES ($1)', [token])
+    res.status(200).json({ message: 'Logged out successfully' })
+  } catch (error) {
+    console.error('Logout error', error)
+    res.status(500).json({ error: 'Logout failed' })
+  }
+}

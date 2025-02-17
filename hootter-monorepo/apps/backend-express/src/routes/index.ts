@@ -7,13 +7,15 @@
 
 import express from 'express'
 import { getHoots, createHoot } from '../controllers/hootController'
-import { register, login } from '../controllers/authController'
+import { register, login, logout } from '../controllers/authController'
+import { authenticate } from '../middleware/auth';
 
 const router = express.Router();
 
 router.post('/register', register)
 router.post('/login', login)
-router.get('/hoots', getHoots)
-router.post('/hoots', createHoot)
+router.post('/logout', authenticate, logout)
+router.get('/hoots', authenticate, getHoots)
+router.post('/hoots', authenticate, createHoot)
 
 export default router

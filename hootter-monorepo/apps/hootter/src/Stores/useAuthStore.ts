@@ -6,16 +6,16 @@
 //
 
 import { create } from 'zustand'
-import axios from 'axios'
 
 interface AuthState {
   token: string | null
   setToken: (token: string | null) => void
-  logout: () => Promise<void> // async for API call
+  logout: () => void // No need for duplicated API call
 }
 
 const useAuthStore = create<AuthState>((set) => ({
   token: localStorage.getItem('token') || null,
+
   setToken: (token) => {
     if (token) {
       localStorage.setItem('token', token)
@@ -24,19 +24,10 @@ const useAuthStore = create<AuthState>((set) => ({
     }
     set({ token })
   },
+
   logout: async () => {
-    try {
-      await axios.post('/api/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-    } catch (error) {
-      console.error('Logout error:', error)
-    } finally {
-      localStorage.removeItem('token')
-      set({ token: null })
-    }
+    localStorage.removeItem('token')
+    set({ token: null })
   }
 }))
 

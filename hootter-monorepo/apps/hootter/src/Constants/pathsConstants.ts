@@ -8,5 +8,9 @@
 export const PATHS = {
   HOME: '/',
   PROFILE: '/profile',
-  FRIENDS: '/friends'
+  FRIENDS: '/friends',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+  REGISTER: '/register',
+  HOOTS: '/hoots'
 }

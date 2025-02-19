@@ -14,6 +14,7 @@ import HootShotIcon from '../Icons/HootShotIcon';
 import HootWrapperButton from '../Buttons/HootWrapperButton';
 import TinyButton from '../Buttons/TinyButton';
 import UserAvatar from '../User/UserAvatar';
+import useTimeAgo from '../../../Hooks/useTimeAgo';
 
 interface IHootsWrapperProps {
   avatar?: string;
@@ -40,6 +41,8 @@ const HootsWrapper: React.FC<IHootsWrapperProps> = ({
   isFollowing,
   isSelf,
 }) => {
+  const timeAgo = useTimeAgo(datetime);
+
   return (
     <div className="p-3 rounded-xl hover:bg-slate-200/70 max-sm:mb-5 max-sm:hover:bg-transparent max-sm:p-0 transition-all duration-75">
       <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
@@ -62,7 +65,7 @@ const HootsWrapper: React.FC<IHootsWrapperProps> = ({
             <p className="font-semibold">{textname}</p>
             <p className="text-gray-400 text-sm truncate">@{username}</p>
             <p className="text-gray-400 text-xs">•</p>
-            <p className="text-gray-400 text-sm">{datetime}</p>
+            <p className="text-gray-400 text-sm">{timeAgo}</p>
           </div>
           <p>{content}</p>
           <div className="flex flex-row justify-between font-regular text-gray-500 mt-4">

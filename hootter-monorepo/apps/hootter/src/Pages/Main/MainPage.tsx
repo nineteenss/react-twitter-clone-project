@@ -11,9 +11,7 @@ import { useHoots } from '../../Hooks/useHoots';
 
 const MainPage: React.FC = () => {
   const { receiveHootQuery } = useHoots();
-  console.log(receiveHootQuery);
-
-  return <HootterFeed data={[]} />;
+  return <HootterFeed data={receiveHootQuery.data} />;
 };
 
 export default MainPage;

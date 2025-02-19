@@ -11,28 +11,36 @@ import HootsInput from './UI/Hoots/HootsInput';
 import Title from './UI/Text/Titles';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
 
-interface IHootterFeedProps {
-  data: [];
+interface IHoot {
+  id: number;
+  content: string;
+  user_id: number;
+  created_at: string;
 }
 
-const HootterFeed: React.FC<IHootterFeedProps> = (data) => {
+interface IHootterFeedProps {
+  data: IHoot[];
+}
+
+const HootterFeed: React.FC<IHootterFeedProps> = ({ data }) => {
   return (
     <div className="flex flex-col gap-2">
       <Title label={DEFAULT_NAMES.hootFeedName} />
       <HootsInput placeholder={DEFAULT_NAMES.hootPlaceholderName} rows={2} />
-      {/* Dummy data */}
-      <HootsWrapper
-        isFollowing={false}
-        isSelf={false}
-        textname="John"
-        username="JohnThePunisher"
-        content="some text by John"
-        datetime="now"
-        likes={15}
-        rehoots={25}
-        comments={152}
-      />
-      {/* Dummy data end */}
+      {data?.map((hoot) => (
+        <HootsWrapper
+          key={hoot.id}
+          isFollowing={false}
+          isSelf={false}
+          textname="John"
+          username="JohnThePunisher"
+          content={hoot.content}
+          datetime={hoot.created_at}
+          likes={15}
+          rehoots={25}
+          comments={152}
+        />
+      ))}
     </div>
   );
 };

@@ -14,7 +14,11 @@ export function useHoots() {
   const receiveHootQuery = useQuery({
     queryKey: ['hoots'],
     queryFn: async () => {
-      const response = await axios.get(`${BASE_API_URL}/api${PATHS.HOOTS}`)
+      const response = await axios.get(`${BASE_API_URL}/api${PATHS.HOOTS}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       return response.data
     }
   })

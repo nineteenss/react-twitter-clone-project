@@ -8,13 +8,13 @@
 import React, { PropsWithChildren } from 'react';
 
 // prettier-ignore
-interface TextProps extends PropsWithChildren, React.HTMLAttributes<HTMLDivElement> {
+interface ITextProps extends PropsWithChildren, React.HTMLAttributes<HTMLDivElement> {
   leftSection?: React.ReactNode;
   rightSection?: React.ReactNode;
   onClick?: () => void;
 }
 
-const Text: React.FC<TextProps> = ({ leftSection, children, rightSection, onClick, ...props }) => {
+const Text: React.FC<ITextProps> = ({ leftSection, children, rightSection, onClick, ...props }) => {
   return (
     <div className="flex flex-row items-center gap-1" onClick={onClick} {...props}>
       {leftSection && leftSection}

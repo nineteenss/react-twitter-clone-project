@@ -11,11 +11,11 @@ import HootsInput from './UI/Hoots/HootsInput';
 import Title from './UI/Text/Titles';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
 
-interface HootterFeedProps {
+interface IHootterFeedProps {
   data: [];
 }
 
-const HootterFeed: React.FC<HootterFeedProps> = (data) => {
+const HootterFeed: React.FC<IHootterFeedProps> = (data) => {
   return (
     <div className="flex flex-col gap-2">
       <Title label={DEFAULT_NAMES.hootFeedName} />

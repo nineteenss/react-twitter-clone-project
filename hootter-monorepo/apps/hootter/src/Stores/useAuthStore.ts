@@ -7,13 +7,13 @@
 
 import { create } from 'zustand'
 
-interface AuthState {
+interface IAuthState {
   token: string | null
   setToken: (token: string | null) => void
   logout: () => void // No need for duplicated API call
 }
 
-const useAuthStore = create<AuthState>((set) => ({
+const useAuthStore = create<IAuthState>((set) => ({
   token: localStorage.getItem('token') || null,
 
   setToken: (token) => {

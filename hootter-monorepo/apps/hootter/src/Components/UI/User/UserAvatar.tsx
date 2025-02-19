@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-interface UserAvatarProps {
+interface IUserAvatarProps {
   image?: string;
   color?: string;
   name: string;
@@ -15,20 +15,20 @@ interface UserAvatarProps {
   width?: number;
 }
 
-interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IImageProps extends React.HTMLAttributes<HTMLDivElement> {
   imgSrc: string;
   height?: number;
   width?: number;
 }
 
-interface NoImageProps extends React.HTMLAttributes<HTMLDivElement> {
+interface INoImageProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
   name: string;
   height?: number;
   width?: number;
 }
 
-const ImageExists: React.FC<ImageProps> = ({ imgSrc, height, width, ...props }) => {
+const ImageExists: React.FC<IImageProps> = ({ imgSrc, height, width, ...props }) => {
   return (
     <img
       src={imgSrc}
@@ -40,7 +40,7 @@ const ImageExists: React.FC<ImageProps> = ({ imgSrc, height, width, ...props }) 
   );
 };
 
-const ImageDoesNotExist: React.FC<NoImageProps> = ({ color, name, height, width, ...props }) => {
+const ImageDoesNotExist: React.FC<INoImageProps> = ({ color, name, height, width, ...props }) => {
   const className = [
     'flex',
     'flex-col',
@@ -72,7 +72,7 @@ const ImageDoesNotExist: React.FC<NoImageProps> = ({ color, name, height, width,
   );
 };
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ image, color, name, height, width }) => {
+const UserAvatar: React.FC<IUserAvatarProps> = ({ image, color, name, height, width }) => {
   return (
     <>
       {image && <ImageExists imgSrc={image} height={height} width={width} />}

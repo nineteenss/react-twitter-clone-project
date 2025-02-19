@@ -13,13 +13,13 @@ import PollIcon from '../Icons/PollIcon';
 import SendHootIcon from '../Icons/SendHootIcon';
 // import UserAvatar from '../User/UserAvatar';
 
-interface HootsInputProps {
+interface IHootsInputProps {
   data?: [];
   placeholder?: string;
   rows?: number;
 }
 
-const HootsInput: React.FC<HootsInputProps> = ({ data, rows, placeholder }) => {
+const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => {
   return (
     // <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
     <div className="grid grid-cols-1 gap-4 max-sm:mb-4">

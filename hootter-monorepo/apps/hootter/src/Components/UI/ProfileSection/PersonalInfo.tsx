@@ -14,7 +14,7 @@ import LinkHrefIcon from '../Icons/LinkHrefIcon';
 import CalendarIcon from '../Icons/CalendarIcon';
 import TinyButton from '../Buttons/TinyButton';
 
-interface PersonalInfoProps {
+interface IPersonalInfoProps {
   avatar?: string;
   textname: string;
   username: string;
@@ -29,7 +29,7 @@ interface PersonalInfoProps {
   isSelf: boolean;
 }
 
-const PersonalInfo: React.FC<PersonalInfoProps> = ({
+const PersonalInfo: React.FC<IPersonalInfoProps> = ({
   avatar,
   textname,
   username,

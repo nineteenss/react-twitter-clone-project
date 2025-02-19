@@ -5,10 +5,10 @@
 //  Created by Sergey Smetannikov on 11.02.2025
 //
 
-interface IconProps {
+interface IIconProps {
   color?: string
   height?: number
   width?: number
 }
 
-export default IconProps
+export default IIconProps

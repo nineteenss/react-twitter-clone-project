@@ -6,20 +6,9 @@
 //
 
 import React from 'react';
+import IBaseButtonProps from '../../../Props/uiElementsProps';
 
-interface ButtonProps {
-  label?: string;
-  icon?: React.ReactNode;
-  color?: string;
-  onClick?: () => void;
-  left?: boolean;
-  center?: boolean;
-  right?: boolean;
-  leftSection?: React.ReactNode;
-  rightSection?: React.ReactNode;
-}
-
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IBaseButtonProps> = ({
   label,
   icon,
   onClick,

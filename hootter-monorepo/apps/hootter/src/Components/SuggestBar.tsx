@@ -9,16 +9,16 @@ import React from 'react';
 import Title from './UI/Text/Titles';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
 
-interface SuggestBarProps {
+interface ISuggestBarProps {
   data?: [];
 }
 
-interface TopicsProps {
+interface ITopicsProps {
   hashtag: string;
   hootsCount: number;
 }
 
-const Topics: React.FC<TopicsProps> = ({ hashtag, hootsCount }) => {
+const Topics: React.FC<ITopicsProps> = ({ hashtag, hootsCount }) => {
   return (
     <div className="min-[911px]:border-b border-gray-500/15 pb-2 mb-2 min-[910px]:last:border-b-0 max-[910px]:bg-slate-200 max-[910px]:p-3 max-[910px]:rounded-2xl max-[910px]:mb-0 max-[910px]:last:col-span-2">
       <p className="font-medium truncate">#{hashtag}</p>
@@ -42,7 +42,7 @@ const TopicsFeed: React.FC = () => {
   );
 };
 
-const SuggestBar: React.FC<SuggestBarProps> = () => {
+const SuggestBar: React.FC<ISuggestBarProps> = () => {
   return (
     <div className="flex flex-col gap-3">
       <Title label={DEFAULT_NAMES.trendsName} />

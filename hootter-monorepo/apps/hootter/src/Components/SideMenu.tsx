@@ -14,12 +14,12 @@ import ProfileIcon from './UI/Icons/ProfileIcon';
 import HootFeedIcon from './UI/Icons/HootFeedIcon';
 import FriendsIcon from './UI/Icons/FirendsIcon';
 
-interface SideMenuProps {
+interface ISideMenuProps {
   portal?: React.ReactNode;
   isNeedResize?: boolean;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ portal, isNeedResize }) => {
+const SideMenu: React.FC<ISideMenuProps> = ({ portal, isNeedResize }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;

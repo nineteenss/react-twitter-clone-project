@@ -6,9 +6,9 @@
 //
 
 import React from 'react';
-import IconProps from './IconProps';
+import IIconProps from './IconProps';
 
-const SendHootIcon: React.FC<IconProps> = ({ color, width, height }) => {
+const SendHootIcon: React.FC<IIconProps> = ({ color, width, height }) => {
   return (
     <svg
       width={width || '24'}

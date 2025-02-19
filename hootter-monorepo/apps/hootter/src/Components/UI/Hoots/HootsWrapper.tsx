@@ -15,7 +15,7 @@ import HootWrapperButton from '../Buttons/HootWrapperButton';
 import TinyButton from '../Buttons/TinyButton';
 import UserAvatar from '../User/UserAvatar';
 
-interface HootsWrapperProps {
+interface IHootsWrapperProps {
   avatar?: string;
   textname: string;
   username: string;
@@ -28,7 +28,7 @@ interface HootsWrapperProps {
   isSelf: boolean | false;
 }
 
-const HootsWrapper: React.FC<HootsWrapperProps> = ({
+const HootsWrapper: React.FC<IHootsWrapperProps> = ({
   avatar,
   username,
   content,

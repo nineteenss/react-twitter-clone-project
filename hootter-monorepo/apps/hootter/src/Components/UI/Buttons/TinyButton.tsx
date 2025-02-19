@@ -6,16 +6,14 @@
 //
 
 import React from 'react';
+import IBaseButtonProps from '../../../Props/uiElementsProps';
 
-interface TinyButtonProps {
-  label?: string;
-  color?: string;
+interface ITinyButtonProps extends IBaseButtonProps {
   nobackground?: boolean;
   noaction?: boolean;
-  onClick?: () => void;
 }
 
-const TinyButton: React.FC<TinyButtonProps> = ({
+const TinyButton: React.FC<ITinyButtonProps> = ({
   label,
   color,
   nobackground,

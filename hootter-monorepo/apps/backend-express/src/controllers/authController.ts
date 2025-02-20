@@ -9,13 +9,13 @@ import bcrypt from 'bcrypt'
 import { Request, Response } from "express"
 import jwt from 'jsonwebtoken'
 import { pool } from '../db/client'
-import { UserSchema } from '../schemas/schemas'
+import { UserLoginSchema, UserRegisterSchema } from '../schemas/schemas'
 
 const roundOfSalts = 10
 
 export const register = async (req: Request, res: Response) => {
   // Validate the request body using Zod
-  const validationResult = UserSchema.safeParse(req.body)
+  const validationResult = UserRegisterSchema.safeParse(req.body)
 
   if (!validationResult.success) {
     // If validation fails, return a 400 error with the validation errors
@@ -25,22 +25,27 @@ export const register = async (req: Request, res: Response) => {
     })
   }
 
-  const { username, password } = validationResult.data
+  const { username, textname, password } = validationResult.data
 
   try {
     const hashedPassword = await bcrypt.hash(password, roundOfSalts)
 
-    await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, hashedPassword])
+    await pool.query(`
+      INSERT INTO users (
+        username,
+        textname,
+        password
+      ) VALUES ($1, $2, $3)`, [username, textname, hashedPassword])
     res.status(201).send('User registered')
   } catch (error) {
     res.status(500).send('Error registering new user')
-    console.error(error)
+    console.error('Error registering user:', error)
   }
 }
 
 export const login = async (req: Request, res: Response) => {
   // Validate the request body using Zod
-  const validationResult = UserSchema.safeParse(req.body)
+  const validationResult = UserLoginSchema.safeParse(req.body)
 
   if (!validationResult.success) {
     // If validation fails, return a 400 error with the validation errors

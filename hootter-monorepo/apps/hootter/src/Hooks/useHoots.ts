@@ -7,7 +7,7 @@
 
 import { useQuery, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { BASE_API_URL, queryClient } from '../Lib/api'
+import { BASE_API_URL, queryClient, getAuthHeaders } from '../Lib/api'
 import { PATHS } from '../Constants/pathsConstants'
 
 export function useHoots() {
@@ -15,9 +15,7 @@ export function useHoots() {
     queryKey: ['hoots'],
     queryFn: async () => {
       const response = await axios.get(`${BASE_API_URL}/api${PATHS.HOOTS}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+        headers: getAuthHeaders()
       })
       return response.data
     }

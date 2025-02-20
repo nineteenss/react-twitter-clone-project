@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../Constants/pathsConstants'
-import { BASE_API_URL } from '../Lib/api'
+import { BASE_API_URL, getAuthHeaders } from '../Lib/api'
 import IUserAuthProps from '../Props/globalProps'
 import useAuthStore from '../Stores/useAuthStore'
 
@@ -49,9 +49,7 @@ const useAuth = () => {
   const logoutMutation = useMutation({
     mutationFn: async () => {
       await axios.post(`${BASE_API_URL}/api${PATHS.LOGOUT}`, {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+        headers: getAuthHeaders()
       })
     },
     onSuccess: () => {

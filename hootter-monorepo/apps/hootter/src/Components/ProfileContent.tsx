@@ -11,10 +11,9 @@ import HootsInput from './UI/Hoots/HootsInput';
 import HootsWrapper from './UI/Hoots/HootsWrapper';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
 import PersonalInfo from './UI/ProfileSection/PersonalInfo';
+import { IHootterFeedProps } from '@hootter/shared';
 
-// interface ProfileContentProps {}
-
-const ProfileContent: React.FC = () => {
+const ProfileContent: React.FC<IHootterFeedProps> = ({ data }) => {
   return (
     <div className="flex flex-col gap-2">
       <Title label={DEFAULT_NAMES.profileName} />
@@ -31,19 +30,22 @@ const ProfileContent: React.FC = () => {
         isSelf={false}
       />
       <HootsInput placeholder={DEFAULT_NAMES.hootPlaceholderName} rows={2} />
+      {data?.map((hoot) => (
+        <HootsWrapper
+          key={hoot.id}
+          isFollowing={false}
+          isSelf={false}
+          textname="John"
+          username="JohnThePunisher"
+          content={hoot.content}
+          datetime={hoot.created_at}
+          likes={hoot.likes}
+          rehoots={hoot.rehoots}
+          comments={hoot.comments}
+        />
+      ))}
       {/* Dummy data */}
-      <HootsWrapper
-        isFollowing={false}
-        isSelf={true}
-        textname="You"
-        username="YourSelf"
-        content="some text by You"
-        datetime="now"
-        likes={15}
-        rehoots={25}
-        comments={152}
-      />
-      <HootsWrapper
+      {/* <HootsWrapper
         isFollowing={false}
         isSelf={true}
         textname="You"
@@ -75,7 +77,7 @@ const ProfileContent: React.FC = () => {
         likes={15}
         rehoots={25}
         comments={152}
-      />
+      /> */}
       {/* Dummy data end */}
     </div>
   );

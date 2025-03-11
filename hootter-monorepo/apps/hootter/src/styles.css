@@ -5,6 +5,14 @@
 
 body {
   @apply bg-white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  @apply flex flex-col;
+  flex: 1;
 }
 
 .hover-overlay:after {

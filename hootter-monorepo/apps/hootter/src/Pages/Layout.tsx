@@ -39,8 +39,8 @@ const MainLayout: React.FC = () => {
   const isSmScreen = windowWidth >= SCREEN_SIZE.sm;
 
   return (
-    <>
-      <div className="p-12 max-sm:px-6">
+    <div className="flex flex-col min-h-screen justify-between">
+      <div className="p-12 max-sm:px-6 h-full">
         {!isLgScreen && <Header />}
         {!isSmScreen && <SideMenu />}
         <div className="grid xl:grid-cols-[320px_minmax(0,_1fr)_420px] max-[910px]:grid-cols-[90px_minmax(0,_1fr)] grid-cols-[320px_minmax(0,_1fr)] max-[639px]:grid-cols-[minmax(0,_1fr)]">
@@ -65,7 +65,7 @@ const MainLayout: React.FC = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

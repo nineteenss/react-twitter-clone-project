@@ -10,17 +10,7 @@ import HootsWrapper from './UI/Hoots/HootsWrapper';
 import HootsInput from './UI/Hoots/HootsInput';
 import Title from './UI/Text/Titles';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
-
-interface IHoot {
-  id: number;
-  content: string;
-  user_id: number;
-  created_at: string;
-}
-
-interface IHootterFeedProps {
-  data: IHoot[];
-}
+import { IHootterFeedProps } from '@hootter/shared';
 
 const HootterFeed: React.FC<IHootterFeedProps> = ({ data }) => {
   return (

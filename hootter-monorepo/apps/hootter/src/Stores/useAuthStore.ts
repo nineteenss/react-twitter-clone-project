@@ -10,7 +10,7 @@ import { create } from 'zustand'
 interface IAuthState {
   token: string | null
   setToken: (token: string | null) => void
-  logout: () => void // No need for duplicated API call
+  logout: () => void
 }
 
 const useAuthStore = create<IAuthState>((set) => ({

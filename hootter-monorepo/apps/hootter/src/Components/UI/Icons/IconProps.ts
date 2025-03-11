@@ -5,7 +5,7 @@
 //  Created by Sergey Smetannikov on 11.02.2025
 //
 
-interface IIconProps {
+interface IIconProps extends React.SVGProps<SVGSVGElement> {
   color?: string
   height?: number
   width?: number

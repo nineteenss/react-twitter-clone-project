@@ -10,7 +10,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../Constants/pathsConstants'
 import { BASE_API_URL, getAuthHeaders } from '../Lib/api'
-import IUserAuthProps from '../Props/globalProps'
+import { IUserAuthProps, IUserRegisterProps } from '../Props/globalProps'
 import useAuthStore from '../Stores/useAuthStore'
 
 const useAuth = () => {
@@ -34,12 +34,13 @@ const useAuth = () => {
   })
 
   const registerMutation = useMutation({
-    mutationFn: async (credentials: IUserAuthProps) => {
-      await axios.post(`${BASE_API_URL}/api${PATHS.REGISTER}`, credentials)
+    mutationFn: async (credentials: IUserRegisterProps) => {
+      const response = await axios.post(`${BASE_API_URL}/api${PATHS.REGISTER}`, credentials)
+      return response.data.token
     },
-    onSuccess: () => {
-      navigate(PATHS.LOGIN)
-      alert('Registration successful! Please login.')
+    onSuccess: (token) => {
+      setToken(token)
+      navigate(PATHS.HOME)
     },
     onError: (error) => {
       console.error('Registration error:', error)

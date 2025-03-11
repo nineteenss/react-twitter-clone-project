@@ -11,6 +11,7 @@ import ImageIcon from '../Icons/ImageIcon';
 import GifIcon from '../Icons/GifIcon';
 import PollIcon from '../Icons/PollIcon';
 import SendHootIcon from '../Icons/SendHootIcon';
+import Tooltip from '../Tooltip/Tooltip';
 // import UserAvatar from '../User/UserAvatar';
 
 interface IHootsInputProps {
@@ -35,15 +36,23 @@ const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => 
         {/* Input menu - upload image, upload gif, create poll, send message */}
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-1">
-            <Button icon={<ImageIcon color="white" />} color={'bg-blue-500'} />
-            <Button icon={<GifIcon color="white" />} color={'bg-blue-500'} />
-            <Button icon={<PollIcon color="white" />} color={'bg-blue-500'} />
+            <Tooltip label="Upload image">
+              <Button icon={<ImageIcon color="white" />} color={'bg-blue-500'} />
+            </Tooltip>
+            <Tooltip label="Upload gif">
+              <Button icon={<GifIcon color="white" />} color={'bg-blue-500'} />
+            </Tooltip>
+            <Tooltip label="Create poll">
+              <Button icon={<PollIcon color="white" />} color={'bg-blue-500'} />
+            </Tooltip>
           </div>
-          <Button
-            label="Hoot"
-            rightSection={<SendHootIcon color="white" />}
-            color={'bg-blue-500'}
-          />
+          <Tooltip label="Send hoot">
+            <Button
+              label="Hoot"
+              rightSection={<SendHootIcon color="white" />}
+              color={'bg-blue-500'}
+            />
+          </Tooltip>
         </div>
       </div>
     </div>

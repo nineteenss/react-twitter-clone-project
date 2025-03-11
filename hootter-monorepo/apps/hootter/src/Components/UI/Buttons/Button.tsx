@@ -8,7 +8,11 @@
 import React from 'react';
 import IBaseButtonProps from '../../../Props/uiElementsProps';
 
-const Button: React.FC<IBaseButtonProps> = ({
+interface IButtonProps extends IBaseButtonProps {
+  fullWidth?: boolean;
+}
+
+const Button: React.FC<IButtonProps> = ({
   label,
   icon,
   onClick,
@@ -18,6 +22,7 @@ const Button: React.FC<IBaseButtonProps> = ({
   right,
   leftSection,
   rightSection,
+  fullWidth = false,
 }) => {
   const className = [
     color || 'bg-orange-500',
@@ -43,7 +48,7 @@ const Button: React.FC<IBaseButtonProps> = ({
     .join(' ');
 
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className + (fullWidth ? ' w-full justify-center' : '')} onClick={onClick}>
       {leftSection && leftSection}
       {icon && icon}
       {label && label}

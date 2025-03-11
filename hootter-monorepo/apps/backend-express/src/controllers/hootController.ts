@@ -7,7 +7,7 @@
 
 import { Request, Response } from 'express'
 import { pool } from '../db/client'
-import { CommentSchema, HootSchema } from '../schemas/schemas'
+import { CommentSchema, HootSchema } from '@hootter/shared'
 import { ERR_CODE } from '../constants/errorStatus'
 
 // Get all existing hoots

@@ -5,7 +5,13 @@
 //  Created by Sergey Smetannikov on 19.02.2025
 //
 
-export default interface IUserAuthProps {
+export interface IUserAuthProps {
+  username: string
+  password: string
+}
+
+export interface IUserRegisterProps {
+  textname: string
   username: string
   password: string
 }

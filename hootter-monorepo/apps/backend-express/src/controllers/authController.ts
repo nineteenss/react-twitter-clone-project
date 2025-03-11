@@ -9,16 +9,14 @@ import bcrypt from 'bcrypt'
 import { Request, Response } from "express"
 import jwt from 'jsonwebtoken'
 import { pool } from '../db/client'
-import { UserLoginSchema, UserRegisterSchema } from '../schemas/schemas'
+import { UserLoginSchema, UserRegisterSchema } from '@hootter/shared'
 
 const roundOfSalts = 10
 
 export const register = async (req: Request, res: Response) => {
-  // Validate the request body using Zod
   const validationResult = UserRegisterSchema.safeParse(req.body)
 
   if (!validationResult.success) {
-    // If validation fails, return a 400 error with the validation errors
     return res.status(400).json({
       error: 'Validation Error',
       details: validationResult.error.errors
@@ -36,19 +34,25 @@ export const register = async (req: Request, res: Response) => {
         textname,
         password
       ) VALUES ($1, $2, $3)`, [username, textname, hashedPassword])
-    res.status(201).send('User registered')
+
+    const user = await pool.query('SELECT * FROM users WHERE username = $1', [username])
+
+    if (user.rows.length > 0 && await bcrypt.compare(password, user.rows[0].password)) {
+      const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '24h' })
+      return res.json({ token })
+    } else {
+      return res.status(400).send('Invalid credentials, unable to register user')
+    }
   } catch (error) {
-    res.status(500).send('Error registering new user')
     console.error('Error registering user:', error)
+    return res.status(500).send('Error registering new user')
   }
 }
 
 export const login = async (req: Request, res: Response) => {
-  // Validate the request body using Zod
   const validationResult = UserLoginSchema.safeParse(req.body)
 
   if (!validationResult.success) {
-    // If validation fails, return a 400 error with the validation errors
     return res.status(400).json({
       error: 'Validation Error',
       details: validationResult.error.errors

@@ -1,10 +1,3 @@
-//
-//  HootShot.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 12.02.2025
-//
-
 import React from 'react';
 import IIconProps from './IconProps';
 

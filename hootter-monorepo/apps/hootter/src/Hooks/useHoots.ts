@@ -1,10 +1,3 @@
-//
-//  useHoots.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 14.02.2025
-//
-
 import { useQuery, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { BASE_API_URL, queryClient, getAuthHeaders } from '../Lib/api'

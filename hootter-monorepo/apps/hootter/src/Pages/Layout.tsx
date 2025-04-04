@@ -1,10 +1,3 @@
-//
-//  Layout.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 13.02.2025
-//
-
 import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { SCREEN_SIZE } from '../Constants/screenSizeConstants';
@@ -25,9 +18,7 @@ const MainLayout: React.FC = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    // Setup EL
     window.addEventListener('resize', handleResize);
-    // Cleanup EL
     return () => {
       window.removeEventListener('resize', handleResize);
     };

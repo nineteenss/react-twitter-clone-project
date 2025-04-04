@@ -1,10 +1,3 @@
-//
-//  Tooltip.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 09.03.2025
-//
-
 import React, { PropsWithChildren } from 'react';
 
 interface ITooltipProps extends PropsWithChildren, React.HTMLAttributes<HTMLDivElement> {

@@ -1,10 +1,3 @@
-//
-//  Text.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 14.02.2025
-//
-
 import React, { PropsWithChildren } from 'react';
 
 // prettier-ignore

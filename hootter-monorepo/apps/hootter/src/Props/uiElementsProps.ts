@@ -1,10 +1,3 @@
-//
-//  uiElementsProps.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 19.02.2025
-//
-
 /**
  * Interface for base button component props
  * @interface IBaseButtonProps

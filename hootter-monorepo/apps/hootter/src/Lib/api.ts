@@ -1,10 +1,3 @@
-//
-//  api.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 15.02.2025
-//
-
 import { QueryClient } from '@tanstack/react-query'
 
 export const queryClient = new QueryClient()

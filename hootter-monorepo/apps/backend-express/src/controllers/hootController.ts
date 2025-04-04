@@ -1,23 +1,23 @@
-//
-//  hootController.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 10.02.2025
-//
-
-import { Request, Response } from 'express'
-import { pool } from '../db/client'
 import { CommentSchema, HootSchema } from '@hootter/shared'
+import { Request, Response } from 'express'
 import { ERR_CODE } from '../constants/errorStatus'
+import {
+  commentRepository,
+  hootRepository,
+  rehootRepository,
+  userRepository
+} from '../repositories/repo'
+
 
 // Get all existing hoots
 export const getHoots = async (req: Request, res: Response) => {
   try {
-    const result = await pool.query(
-      'SELECT * FROM hoots ORDER BY created_at DESC'
-    )
+    const hoots = await hootRepository.find({
+      relations: ['user'],
+      order: { created_at: 'DESC' }
+    })
 
-    res.json(result.rows)
+    res.json(hoots)
   } catch (error) {
     console.error('Error fetching hoots:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -26,7 +26,6 @@ export const getHoots = async (req: Request, res: Response) => {
 
 // Create new hoot from user
 export const createHoot = async (req: Request, res: Response) => {
-  // Validate the request body using Zod
   const validationResult = HootSchema.safeParse(req.body)
 
   if (!validationResult.success) {
@@ -41,22 +40,20 @@ export const createHoot = async (req: Request, res: Response) => {
 
   try {
     // Check if user exists
-    const userExists = await pool.query(
-      'SELECT id FROM users WHERE id = $1',
-      [user_id]
-    )
+    const user = await userRepository.findOneBy({ id: user_id })
 
-    if (userExists.rows.length === 0) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
 
-    // Insert hoot
-    const result = await pool.query(
-      'INSERT INTO hoots (content, user_id) VALUES ($1, $2) RETURNING *',
-      [content, user_id]
-    )
+    const hoot = hootRepository.create({
+      content,
+      user
+    })
 
-    res.status(201).json(result.rows[0])
+    const savedHoot = await hootRepository.save(hoot)
+
+    res.status(201).json(savedHoot)
   } catch (error) {
     console.error('Error creating hoot:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -68,15 +65,13 @@ export const deleteHoot = async (req: Request, res: Response) => {
   const { hoot_id } = req.params
 
   try {
-    const result = await pool.query(
-      'DELETE FROM hoots WHERE id = $1 RETURNING *',
-      [hoot_id]
-    )
-    if (result.rows.length === 0) {
+    const result = await hootRepository.delete(hoot_id)
+
+    if (result.affected === 0) {
       return res.status(401).json({ error: 'Hoot not found' })
     }
 
-    res.status(201).json(result.rows[0])
+    res.status(201).json({ message: "Hoot deleted successfully" })
   } catch (error) {
     console.error('Error deleting hoot:', error)
     res.status(500).json(ERR_CODE.INTERNAL)
@@ -89,16 +84,20 @@ export const updateHootsStats = async (req: Request, res: Response) => {
   const { likes, rehoots, comments } = req.body
 
   try {
-    const result = await pool.query(
-      'UPDATE hoots SET likes = $1, rehoots = $2, comments = $3 WHERE id = $4 RETURNING *',
-      [likes, rehoots, comments, hoot_id]
-    )
+    const hoot = await hootRepository.findOneBy({ id: parseInt(hoot_id) })
 
-    if (result.rows.length === 0) {
+    if (!hoot) {
       return res.status(404).json({ error: 'Hoot not found' })
     }
 
-    res.status(201).json(result.rows[0])
+    const updatedHoot = await hootRepository.save({
+      ...hoot,
+      likes,
+      rehoots,
+      comments
+    })
+
+    res.status(201).json(updatedHoot)
   } catch (error) {
     console.error('Error updating hoot stats:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -121,12 +120,25 @@ export const addComment = async (req: Request, res: Response) => {
   const { user_id, content } = req.body
 
   try {
-    const result = await pool.query(
-      'INSERT INTO comments (hoot_id, user_id, content) VALUES ($1, $2, $3) RETURNING *',
-      [hoot_id, user_id, content]
-    )
+    const user = await userRepository.findOneBy({ id: user_id })
+    const hoot = await hootRepository.findOneBy({ id: parseInt(hoot_id) })
 
-    res.status(201).json(result.rows[0])
+    if (!user || !hoot) {
+      return res.status(404).json({ error: "User or Hoot not found" })
+    }
+
+    const comment = commentRepository.create({
+      content,
+      user,
+      hoot
+    })
+
+    const savedComment = await commentRepository.save(comment)
+
+    hoot.comments += 1
+    await hootRepository.save(hoot)
+
+    res.status(201).json(savedComment)
   } catch (error) {
     console.error('Error adding comment:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -139,12 +151,24 @@ export const reHoot = async (req: Request, res: Response) => {
   const { user_id } = req.body
 
   try {
-    const result = await pool.query(
-      'INSERT INTO rehoots (hoot_id, user_id) VALUES ($1, $2) RETURNING *',
-      [hoot_id, user_id]
-    )
+    const user = await userRepository.findOneBy({ id: user_id })
+    const hoot = await hootRepository.findOneBy({ id: parseInt(hoot_id) })
 
-    res.status(201).json(result.rows[0])
+    if (!user || !hoot) {
+      return res.status(404).json({ error: "User or Hoot not found" })
+    }
+
+    const rehoot = rehootRepository.create({
+      user,
+      hoot
+    })
+
+    const savedRehoot = await rehootRepository.save(rehoot)
+
+    hoot.rehoots += 1
+    await hootRepository.save(hoot)
+
+    res.status(201).json(savedRehoot)
   } catch (error) {
     console.error('Error performing rehoot:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -156,16 +180,16 @@ export const likeHoot = async (req: Request, res: Response) => {
   const { hoot_id } = req.params
 
   try {
-    const result = await pool.query(
-      'UPDATE hoots SET likes = likes + 1 WHERE id = $1 RETURNING *',
-      [hoot_id]
-    )
+    const hoot = await hootRepository.findOneBy({ id: parseInt(hoot_id) })
 
-    if (result.rows.length === 0) {
-      return res.status(401).json({ error: 'Hoot not found' })
+    if (!hoot) {
+      return res.status(404).json({ error: "Hoot not found" })
     }
 
-    res.status(201).json(result.rows[0])
+    hoot.likes += 1
+    const updatedHoot = await hootRepository.save(hoot)
+
+    res.status(201).json(updatedHoot)
   } catch (error) {
     console.error('Error liking hoot:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })

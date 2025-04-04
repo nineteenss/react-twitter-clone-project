@@ -1,10 +1,3 @@
-//
-//  useAuth.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 19.02.2025
-//
-
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'

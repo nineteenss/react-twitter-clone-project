@@ -1,10 +1,3 @@
-//
-//  HootterFeed.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 10.02.2025
-//
-
 import React from 'react';
 import HootsWrapper from './UI/Hoots/HootsWrapper';
 import HootsInput from './UI/Hoots/HootsInput';
@@ -20,15 +13,14 @@ const HootterFeed: React.FC<IHootterFeedProps> = ({ data }) => {
       {data?.map((hoot) => (
         <HootsWrapper
           key={hoot.id}
+          userId={hoot.user_id}
           isFollowing={false}
           isSelf={false}
-          textname="John"
-          username="JohnThePunisher"
           content={hoot.content}
           datetime={hoot.created_at}
-          likes={15}
-          rehoots={25}
-          comments={152}
+          likes={hoot.likes}
+          rehoots={hoot.rehoots}
+          comments={hoot.comments}
         />
       ))}
     </div>

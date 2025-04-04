@@ -1,10 +1,3 @@
-//
-//  screenSizeConstants.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 13.02.2025
-//
-
 export const SCREEN_SIZE = {
   // Screen sizes based on default tailwind css device resolutions.
   // SRC: https://tailwindcss.com/docs/responsive-design

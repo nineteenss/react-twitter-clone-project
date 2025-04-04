@@ -1,10 +1,3 @@
-//
-//  index.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 10.02.2025
-//
-
 import express from 'express'
 import {
   getHoots,

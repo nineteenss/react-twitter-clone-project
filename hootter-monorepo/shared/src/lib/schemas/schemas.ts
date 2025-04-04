@@ -1,10 +1,3 @@
-//
-//  schemas.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 16.02.2025
-//
-
 import { z } from 'zod'
 
 export const HootSchema = z.object({

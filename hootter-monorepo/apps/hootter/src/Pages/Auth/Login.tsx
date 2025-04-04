@@ -1,10 +1,3 @@
-//
-//  Login.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 19.02.2025
-//
-
 import React, { useState } from 'react';
 import Button from '../../Components/UI/Buttons/Button';
 import Input from '../../Components/UI/Inputs/Input';

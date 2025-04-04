@@ -1,10 +1,3 @@
-//
-//  useAuthStore.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 16.02.2025
-//
-
 import { create } from 'zustand'
 
 interface IAuthState {

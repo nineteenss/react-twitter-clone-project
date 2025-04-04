@@ -1,10 +1,3 @@
-//
-//  nameConstants.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 12.02.2025
-//
-
 export const DEFAULT_NAMES = {
   // Global names
   appTitleName: "hootter.",

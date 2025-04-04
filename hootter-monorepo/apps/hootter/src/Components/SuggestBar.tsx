@@ -1,10 +1,3 @@
-//
-//  SuggestBar.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 13.02.2025
-//
-
 import React from 'react';
 import Title from './UI/Text/Titles';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';

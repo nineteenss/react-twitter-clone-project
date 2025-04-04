@@ -1,10 +1,3 @@
-//
-//  pathsConstants.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 14.02.2025
-//
-
 export const PATHS = {
   HOME: '/',
   PROFILE: '/profile',
@@ -12,5 +5,6 @@ export const PATHS = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   REGISTER: '/register',
-  HOOTS: '/hoots'
+  HOOTS: '/hoots',
+  USERS: '/users'
 }

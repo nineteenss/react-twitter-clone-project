@@ -1,10 +1,3 @@
-//
-//  Input.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 10.02.2025
-//
-
 import React from 'react';
 import HideIcon from '../Icons/HideIcon';
 import ShowIcon from '../Icons/ShowIcon';

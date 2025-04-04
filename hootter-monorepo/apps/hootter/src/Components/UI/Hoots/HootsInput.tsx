@@ -1,10 +1,3 @@
-//
-//  HootsInput.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 12.02.2025
-//
-
 import React from 'react';
 import Button from '../Buttons/Button';
 import ImageIcon from '../Icons/ImageIcon';

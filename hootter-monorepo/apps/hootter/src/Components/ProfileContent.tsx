@@ -1,10 +1,3 @@
-//
-//  ProfileContent.tsx
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 14.02.2025
-//
-
 import React from 'react';
 import Title from './UI/Text/Titles';
 import HootsInput from './UI/Hoots/HootsInput';
@@ -33,10 +26,9 @@ const ProfileContent: React.FC<IHootterFeedProps> = ({ data }) => {
       {data?.map((hoot) => (
         <HootsWrapper
           key={hoot.id}
+          userId={hoot.user_id}
           isFollowing={false}
           isSelf={false}
-          textname="John"
-          username="JohnThePunisher"
           content={hoot.content}
           datetime={hoot.created_at}
           likes={hoot.likes}

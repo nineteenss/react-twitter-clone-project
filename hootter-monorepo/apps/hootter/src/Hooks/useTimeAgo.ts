@@ -1,10 +1,3 @@
-//
-//  useTimeAgo.ts
-//  react-twitter-clone-project
-//
-//  Created by Sergey Smetannikov on 19.02.2025
-//
-
 import { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns'
 

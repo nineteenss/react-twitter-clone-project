@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../Constants/pathsConstants'
 import { BASE_API_URL, getAuthHeaders } from '../Lib/api'
@@ -21,8 +21,10 @@ const useAuth = () => {
       navigate(PATHS.HOME)
     },
     onError: (error) => {
-      console.error('Login error:', error)
-      throw new Error('Login failed. Please check your credentials')
+      if (error instanceof AxiosError && error.response) {
+        throw new Error(error.response.data.error || 'Login failed')
+      }
+      throw new Error('Login failed. Please try again later')
     }
   })
 

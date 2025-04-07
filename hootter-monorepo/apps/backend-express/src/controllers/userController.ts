@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { userRepository, followRepository } from '../repositories/repo'
 import { ERR_CODE } from '../constants/errorStatus'
 import { Like } from 'typeorm'
+import jwt from 'jsonwebtoken'
 
 
 // Get user by ID
@@ -11,17 +12,41 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const user = await userRepository.findOne({
       where: { id: parseInt(user_id) },
-      select: ['username', 'textname']
+      select: ['id', 'username', 'textname']
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: ERR_CODE.USER_NF });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error fetching user by token:', error);
+    res.status(500).json({ error: ERR_CODE.INTERNAL });
+  }
+}
+
+export const getSelfId = async (req: Request, res: Response) => {
+  try {
+    const { user_id } = req.body
+
+    if (!user_id) {
+      return res.status(401).json({ error: 'User ID not found in token' })
+    }
+
+    const user = await userRepository.findOne({
+      where: { id: parseInt(user_id) },
+      select: ['id']
     })
 
     if (!user) {
-      return res.status(404).json({ error: ERR_CODE.USER_NF })
+      return res.status(404).json({ error: 'User not found' })
     }
 
-    res.status(201).json(user)
+    res.status(200).json({ user_id: user.id })
   } catch (error) {
-    console.error('Error fetching users:', error)
-    res.status(500).json({ error: ERR_CODE.INTERNAL })
+    console.error('Error fetching user by token:', error)
+    res.status(500).json({ error: 'Internal server error' })
   }
 }
 

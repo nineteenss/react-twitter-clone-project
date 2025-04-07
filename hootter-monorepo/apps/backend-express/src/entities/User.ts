@@ -6,13 +6,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ length: 50, unique: true })
+  @Column({ type: "varchar", length: 50, unique: true })
   username: string
 
-  @Column({ length: 100 })
+  @Column({ type: "varchar", length: 100 })
   textname: string
 
-  @Column()
+  @Column({ type: "text" })
   password: string
 
   @CreateDateColumn({ type: "timestamp with time zone" })

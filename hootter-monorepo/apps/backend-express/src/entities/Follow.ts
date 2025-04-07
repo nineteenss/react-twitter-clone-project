@@ -4,15 +4,15 @@ import { User } from "./index"
 @Entity("follows")
 @Unique(["follower", "followed"])
 export class Follow {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number
 
   @CreateDateColumn({ type: "timestamp with time zone" })
   created_at: Date
 
-  @ManyToOne(() => User, (user) => user.following)
+  @ManyToOne(() => User, (user) => user.following, { onDelete: "CASCADE" })
   follower: User
 
-  @ManyToOne(() => User, (user) => user.followers)
+  @ManyToOne(() => User, (user) => user.followers, { onDelete: "CASCADE" })
   followed: User
 }

@@ -5,7 +5,15 @@ import GifIcon from '../Icons/GifIcon';
 import PollIcon from '../Icons/PollIcon';
 import SendHootIcon from '../Icons/SendHootIcon';
 import Tooltip from '../Tooltip/Tooltip';
-// import UserAvatar from '../User/UserAvatar';
+import { useState } from 'react';
+import { useHoots } from './../../../Hooks/useHoots';
+import { HootSchema } from '@hootter/shared';
+import { z } from 'zod';
+import { useOutletContext } from 'react-router-dom';
+
+interface ContextType {
+  userId: number | null;
+}
 
 interface IHootsInputProps {
   data?: [];
@@ -14,10 +22,43 @@ interface IHootsInputProps {
 }
 
 const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => {
+  const [content, setContent] = useState<string>('');
+  const [_, setError] = useState<Record<string, string>>({});
+  const { userId } = useOutletContext<ContextType>();
+
+  const { sendHootMutation } = useHoots();
+
+  const handleSendHoot = async () => {
+    try {
+      setError({});
+      HootSchema.parse({
+        content,
+        user_id: userId,
+      });
+
+      await sendHootMutation.mutateAsync({
+        content,
+        user_id: userId,
+      });
+
+      setContent('');
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+
+        error.errors.forEach((err) => {
+          newErrors[err.path[0]] = err.message;
+        });
+
+        setError(newErrors);
+      } else {
+        console.error('Error sending hoot:', error);
+      }
+    }
+  };
+
   return (
-    // <div className="grid grid-cols-[45px_minmax(0,_1fr)] gap-4">
     <div className="grid grid-cols-1 gap-4 max-sm:mb-4">
-      {/* <UserAvatar image={data?.toString()} name="self" color={'bg-slate-800'} /> */}
       <div className="bg-slate-200 rounded-3xl h-fit p-4 flex flex-col">
         <textarea
           name="hootarea"
@@ -25,6 +66,8 @@ const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => 
           placeholder={placeholder}
           className="outline-none resize-none overflow-y-hidden bg-transparent w-full mb-2"
           rows={rows || 2}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
         {/* Input menu - upload image, upload gif, create poll, send message */}
         <div className="flex flex-row justify-between">
@@ -44,6 +87,7 @@ const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => 
               label="Hoot"
               rightSection={<SendHootIcon color="white" />}
               color={'bg-blue-500'}
+              onClick={handleSendHoot}
             />
           </Tooltip>
         </div>

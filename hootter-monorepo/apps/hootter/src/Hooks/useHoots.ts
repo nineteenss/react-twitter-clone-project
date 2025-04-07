@@ -15,7 +15,9 @@ export function useHoots() {
   })
 
   const sendHootMutation = useMutation({
-    mutationFn: (newHoot) => axios.post(`${BASE_API_URL}/api${PATHS.HOOTS}`, newHoot),
+    mutationFn: (newHoot: { content: string, user_id: number | null }) => axios.post(`${BASE_API_URL}/api${PATHS.HOOTS}`, newHoot, {
+      headers: getAuthHeaders()
+    }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hoots'] });
     }

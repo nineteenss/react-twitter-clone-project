@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { Request, Response } from "express"
 import { UserLoginSchema, UserRegisterSchema } from '@hootter/shared'
 import { userRepository, blacklistedTokenRepository } from '../repositories/repo'
+import { ERR_CODE } from '../constants/errorStatus'
 
 
 const roundOfSalts = 10
@@ -33,14 +34,6 @@ export const register = async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "24h" })
     return res.json({ token })
 
-    // const user = await pool.query('SELECT * FROM users WHERE username = $1', [username])
-
-    // if (user.rows.length > 0 && await bcrypt.compare(password, user.rows[0].password)) {
-    //   const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '24h' })
-    //   return res.json({ token })
-    // } else {
-    //   return res.status(400).send('Invalid credentials, unable to register user')
-    // }
   } catch (error) {
     console.error('Error registering user:', error)
     return res.status(500).send('Error registering new user')
@@ -62,15 +55,24 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await userRepository.findOne({ where: { username } })
 
-    if (user && await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' })
-      res.json({ token })
-    } else {
-      res.status(400).send('Invalid credentials')
+    if (!user) {
+      return res.status(401).json({
+        fieldErrors: { username: ERR_CODE.USER_DNE }
+      })
     }
+
+    const isValidPassword = await bcrypt.compare(password, user.password)
+    if (!isValidPassword) {
+      return res.status(401).json({
+        fieldErrors: { password: 'Invalid password' }
+      })
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' })
+    res.json({ token })
   } catch (error) {
     console.error('Error during login:', error)
-    res.status(500).send('Internal Server Error')
+    res.status(500).json({ error: ERR_CODE.INTERNAL })
   }
 }
 

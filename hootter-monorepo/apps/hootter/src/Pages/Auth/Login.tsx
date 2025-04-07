@@ -12,8 +12,8 @@ import { z } from 'zod';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<Record<string, string>>({});
 
   const handleLogin = async () => {
@@ -36,8 +36,10 @@ const Login: React.FC = () => {
             setPassword('');
             navigate(PATHS.HOME);
           },
-          onError: (error) => {
-            throw new Error('Login failed. Please check your credentials');
+          onError: (error: any) => {
+            if (error.response?.data?.fieldErrors) {
+              setError(error.response.data.fieldErrors);
+            }
           },
         }
       );

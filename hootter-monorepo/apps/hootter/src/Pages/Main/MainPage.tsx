@@ -4,6 +4,7 @@ import { useHoots } from '../../Hooks/useHoots';
 
 const MainPage: React.FC = () => {
   const { receiveHootQuery } = useHoots();
+
   return <HootterFeed data={receiveHootQuery.data} />;
 };
 

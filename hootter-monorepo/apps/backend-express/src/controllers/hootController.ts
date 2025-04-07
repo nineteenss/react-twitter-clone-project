@@ -17,7 +17,17 @@ export const getHoots = async (req: Request, res: Response) => {
       order: { created_at: 'DESC' }
     })
 
-    res.json(hoots)
+    const sanitizedHoots = hoots.map(hoot => ({
+      id: hoot.id,
+      content: hoot.content,
+      likes: hoot.likes,
+      rehoots: hoot.rehoots,
+      comments: hoot.comments,
+      created_at: hoot.created_at,
+      user_id: hoot.user.id
+    }));
+
+    res.json(sanitizedHoots)
   } catch (error) {
     console.error('Error fetching hoots:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })
@@ -53,7 +63,11 @@ export const createHoot = async (req: Request, res: Response) => {
 
     const savedHoot = await hootRepository.save(hoot)
 
-    res.status(201).json(savedHoot)
+    res.status(201).json({
+      id: savedHoot.id,
+      hoot: savedHoot.content,
+      user_id: savedHoot.user.id
+    })
   } catch (error) {
     console.error('Error creating hoot:', error)
     res.status(500).json({ error: ERR_CODE.INTERNAL })

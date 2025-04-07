@@ -3,25 +3,25 @@ import { User, Comment, Rehoot } from "./index"
 
 @Entity("hoots")
 export class Hoot {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number
 
-  @Column()
+  @Column({ type: "text" })
   content: string
 
-  @Column({ default: 0 })
+  @Column({ type: "int", default: 0 })
   likes: number
 
-  @Column({ default: 0 })
+  @Column({ type: "int", default: 0 })
   rehoots: number
 
-  @Column({ default: 0 })
+  @Column({ type: "int", default: 0 })
   comments: number
 
   @CreateDateColumn({ type: "timestamp with time zone" })
   created_at: Date
 
-  @ManyToOne(() => User, (user) => user.hoots)
+  @ManyToOne(() => User, (user) => user.hoots, { onDelete: "CASCADE" })
   user: User
 
   @OneToMany(() => Comment, (comment) => comment.hoot)

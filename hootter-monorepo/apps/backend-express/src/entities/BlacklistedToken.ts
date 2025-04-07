@@ -2,10 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeor
 
 @Entity("blacklisted_tokens")
 export class BlacklistedToken {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   token: string
 
   @CreateDateColumn({ type: "timestamp with time zone" })

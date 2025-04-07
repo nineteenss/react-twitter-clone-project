@@ -6,12 +6,27 @@ import Header from '../Components/Header';
 import SideMenu from '../Components/SideMenu';
 import Footer from '../Components/Footer';
 import SuggestBar from '../Components/SuggestBar';
+import { useAuthCheck } from '../Hooks/useAuthCheck';
+import { useQuery } from '@tanstack/react-query';
 
 const MainLayout: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [userId, setUserId] = useState();
   const location = useLocation();
   const { pathname } = location;
   const isActive = (path: string) => pathname === path;
+  const { getCurrentUserId } = useAuthCheck();
+
+  useAuthCheck();
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getCurrentUserId();
+      setUserId(id);
+    };
+
+    fetchUserId();
+  }, [getCurrentUserId]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,7 +61,7 @@ const MainLayout: React.FC = () => {
           </div>
           <div className="col-span-1">
             {!isActive(PATHS.PROFILE) && !isSmdScreen && <SuggestBar />}
-            <Outlet />
+            <Outlet context={{ userId }} />
           </div>
           {isXlScreen && (
             <div className="col-span-1 p-4 ml-4 rounded-e-3xl bg-slate-200/75">

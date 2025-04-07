@@ -5,21 +5,35 @@ import HootsWrapper from './UI/Hoots/HootsWrapper';
 import { DEFAULT_NAMES } from '../Constants/nameConstants';
 import PersonalInfo from './UI/ProfileSection/PersonalInfo';
 import { IHootterFeedProps } from '@hootter/shared';
+import { useOutletContext } from 'react-router-dom';
+import { IContextType } from '../Props/globalProps';
+import { useFetchUserData } from '../Hooks/useFetchUserData';
+import { useUtils } from '../Hooks/useUtils';
 
 const ProfileContent: React.FC<IHootterFeedProps> = ({ data }) => {
+  const { userId } = useOutletContext<IContextType>();
+  console.log(userId);
+  const { fetchUserDataQuery } = useFetchUserData(userId);
+  console.log(userId);
+
+  const { data: userData } = fetchUserDataQuery;
+  console.log(userId);
+
+  const { formatDate } = useUtils();
+
   return (
     <div className="flex flex-col gap-2">
       <Title label={DEFAULT_NAMES.profileName} />
       <PersonalInfo
-        textname={'Your name'}
-        username={'YourName'}
+        textname={userData?.textname}
+        username={userData?.username}
         about={'Nothing much to say, honestly. I am just me! Entrepreneur.'}
         location={'US, Los Angeles'}
         website={'hootter.com'}
-        joined={'May 2026'}
-        totalHoots={0}
-        followers={123}
-        following={42}
+        joined={formatDate(userData?.created_at, false)}
+        totalHoots={userData?.hoots || 0}
+        followers={userData?.followers || 0}
+        following={userData?.following || 0}
         isSelf={false}
       />
       <HootsInput placeholder={DEFAULT_NAMES.hootPlaceholderName} rows={2} />

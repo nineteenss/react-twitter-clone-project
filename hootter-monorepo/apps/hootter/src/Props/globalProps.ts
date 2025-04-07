@@ -8,3 +8,7 @@ export interface IUserRegisterProps {
   username: string
   password: string
 }
+
+export interface IContextType {
+  userId: number;
+}

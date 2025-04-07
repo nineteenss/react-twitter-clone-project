@@ -10,10 +10,7 @@ import { useHoots } from './../../../Hooks/useHoots';
 import { HootSchema } from '@hootter/shared';
 import { z } from 'zod';
 import { useOutletContext } from 'react-router-dom';
-
-interface ContextType {
-  userId: number | null;
-}
+import { IContextType } from 'apps/hootter/src/Props/globalProps';
 
 interface IHootsInputProps {
   data?: [];
@@ -24,7 +21,7 @@ interface IHootsInputProps {
 const HootsInput: React.FC<IHootsInputProps> = ({ data, rows, placeholder }) => {
   const [content, setContent] = useState<string>('');
   const [_, setError] = useState<Record<string, string>>({});
-  const { userId } = useOutletContext<ContextType>();
+  const { userId } = useOutletContext<IContextType>();
 
   const { sendHootMutation } = useHoots();
 

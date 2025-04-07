@@ -12,14 +12,28 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const user = await userRepository.findOne({
       where: { id: parseInt(user_id) },
-      select: ['id', 'username', 'textname']
+      relations: ['hoots'],
+      select: [
+        'id',
+        'username',
+        'textname',
+        'created_at',
+        'hoots',
+        'followers',
+        'following'
+      ]
     });
 
     if (!user) {
       return res.status(404).json({ error: ERR_CODE.USER_NF });
     }
 
-    res.status(200).json(user);
+    const response = {
+      ...user,
+      hoots: user.hoots?.length || 0
+    };
+
+    res.status(200).json(response);
   } catch (error) {
     console.error('Error fetching user by token:', error);
     res.status(500).json({ error: ERR_CODE.INTERNAL });

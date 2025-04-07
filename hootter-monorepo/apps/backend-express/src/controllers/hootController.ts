@@ -39,7 +39,6 @@ export const createHoot = async (req: Request, res: Response) => {
   const validationResult = HootSchema.safeParse(req.body)
 
   if (!validationResult.success) {
-    // If validation fails, return a 400 error with the validation errors
     return res.status(400).json({
       error: 'Validation Error',
       details: validationResult.error.errors
@@ -49,7 +48,6 @@ export const createHoot = async (req: Request, res: Response) => {
   const { content, user_id } = req.body
 
   try {
-    // Check if user exists
     const user = await userRepository.findOneBy({ id: user_id })
 
     if (!user) {
@@ -123,7 +121,6 @@ export const addComment = async (req: Request, res: Response) => {
   const validationResult = CommentSchema.safeParse(req.body)
 
   if (!validationResult.success) {
-    // If validation fails, return a 400 error with the validation errors
     return res.status(400).json({
       error: 'Validation Error',
       details: validationResult.error.errors
